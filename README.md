@@ -1,7 +1,7 @@
 # Chandezsh
 ## Introduction
 
-chandezsh is a configrations for zsh based on oh-my-zsh. It is easy to install/update/uninstall zsh configration in Linux. 
+chandezsh is a installer to config zsh based on oh-my-zsh. It is easy to install/update/uninstall zsh configration in Linux. 
 
 Now [chandezsh](https://github/chandelures/chandezsh.git) is in development phase...
 
@@ -15,7 +15,7 @@ chandevim requires `git` ,  `zsh`  and  `oh-my-zsh` . You should install them ea
 
 ## Install
 
-**Please ensure the zsh and oh-my-zsh had been installed.**
+**Please ensure the zsh and oh-my-zsh have been installed.**
 
 ### Linux
 
