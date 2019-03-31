@@ -11,7 +11,7 @@ Now [chandezsh](https://github/chandelures/chandezsh.git) is in development phas
 
 ## Requirements
 
-chandevim is require `git` ,  `zsh`  and  `oh-my-zsh` . You should install them earliest.
+chandevim requires `git` ,  `zsh`  and  `oh-my-zsh` . You should install them earliest.
 
 ## Install
 
@@ -20,9 +20,9 @@ chandevim is require `git` ,  `zsh`  and  `oh-my-zsh` . You should install them 
 ### Linux
 
 ```shell
-git clone https://github.com/chandelures/chandevim.git
-cd chandevim
-./chandevim.sh --install
+git clone https://github.com/chandelures/chandezsh.git
+cd chandevzsh
+./chandezsh.sh --install
 ```
 
 ## Usage
@@ -32,8 +32,8 @@ cd chandevim
 #### Linux
 
 ```shell
-cd chande
-./chandevim.sh --help
+cd chandezsh
+./chandezsh.sh --help
 ```
 
 ### Update
@@ -41,8 +41,8 @@ cd chande
 #### Linux
 
 ```shell
-cd chandevim
-./chandevim.sh --update
+cd chandezsh
+./chandezsh.sh --update
 ```
 
 ### Uninstall
@@ -50,7 +50,7 @@ cd chandevim
 #### Linux
 
 ```shell
-cd chandevim
-./chandevim.sh --remove
+cd chandezsh
+./chandezsh.sh --remove
 ```
 
