@@ -1,5 +1,6 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
+source ~/.zplug/init.zsh
 
 # Path to your oh-my-zsh installation.
 ZSH=~/.oh-my-zsh/
@@ -77,9 +78,6 @@ command-not-found
 safe-paste
 colored-man-pages
 sudo
-
-zsh-autosuggestions
-zsh-syntax-highlighting
 )
 
 
@@ -108,6 +106,17 @@ zsh-syntax-highlighting
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+zplug "zsh-users/zsh-autosuggestions"
+zplug "zsh-users/zsh-syntax-highlighting"
+
+if ! zplug check --verbose; then
+    printf "Install? [y/N]:"
+    if read -q; then
+        echo; zplug install
+    fi
+fi
+
+zplug load --verbose
 
 ZSH_CACHE_DIR=$HOME/.cache/oh-my-zsh
 if [[ ! -d $ZSH_CACHE_DIR ]]; then
