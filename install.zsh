@@ -77,7 +77,7 @@ install() {
 
     create_symlinks
 
-    msg "Done."
+    msg "Done. Plese run source ~/.zshrc && zplug install manually and enjoy it!"
 }
 
 ## update
@@ -125,16 +125,8 @@ main() {
     local OPTIND
     local OPTARG
 
-    local proxy_flag=""
-
     while getopts ihurp: OPT;
     do
-        case $OPT in
-            p)
-                proxy_flag="-x $OPTARG"
-                ;;
-        esac
-
         case $OPT in
             h)
                 usage
