@@ -109,14 +109,7 @@ sudo
 zplug "zsh-users/zsh-autosuggestions"
 zplug "zsh-users/zsh-syntax-highlighting"
 
-if ! zplug check --verbose; then
-    printf "Install? [y/N]:"
-    if read -q; then
-        echo; zplug install
-    fi
-fi
-
-zplug load --verbose
+zplug load
 
 ZSH_CACHE_DIR=$HOME/.cache/oh-my-zsh
 if [[ ! -d $ZSH_CACHE_DIR ]]; then

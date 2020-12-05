@@ -4,6 +4,8 @@
 app_name="chandezsh"
 APP_PATH=`pwd`
 REPO_URL="https://github.com/chandelures/chandezsh.vim"
+ZPLUG_URL="https://github.com/zplug/zplug"
+ZPLUG_HOME="$HOME/.zplug"
 
 ## basic function
 msg() {
@@ -22,12 +24,20 @@ backup() {
 
 create_symlinks() {
     ln -sf "$APP_PATH/.zshrc" "$HOME/.zshrc"
+
+    if [ $? -ne 0 ]; then
+        msg "Create symbol link Failed!"
+        exit 1
+    fi
+
+    msg "Create symbol link Successful!"
 }
 
 program_not_exists() {
     local ret='0'
 
     command -v $1 > /dev/null 2>&1 || { local ret='1'; }
+
     if [ "$ret" -ne 0 ]; then
         return 0
     fi
@@ -36,13 +46,20 @@ program_not_exists() {
 }
 
 install_plug_mgr() {
-    curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh 
+    git clone $ZPLUG_URL $ZPLUG_HOME
+
+    if [ $? -ne 0 ]; then
+        msg "Install plugin manager Failed!"
+        exit 1
+    fi
+
+    msg "Install plugin manager Successful!"
 }
 
 ## install
 install() {
-    if program_not_exists 'curl'; then
-        msg "You don't have curl."
+    if program_not_exists 'git'; then
+        msg "You don't have git."
         return
     fi
 
@@ -58,20 +75,31 @@ install() {
 
     install_plug_mgr
 
-    if [ ! -e "$HOME/.zplug" ]; then
-        msg "Install plug manager failed"
+    create_symlinks
+
+    msg "Done."
+}
+
+## update
+update() {
+    if program_not_exists 'git'; then
+        msg "You don't have git"
+        return
     fi
 
-    create_symlinks
+    git pull
+
+    msg "Done."
 }
 
 ## remove
 remove() {
-    read "input?Do you really want to remove the $app_name? [Y/n]"
+    read "input?Do you really want to remove the $app_name? [Y/n] "
 
     if [[ "$input" =~ ^[yY]$ ]] then
         rm -f $HOME/.zshrc
         rm -rf $HOME/.zplug
+        msg "Done."
     elif [[ "$input" =~ ^[yY]$ ]] then
         msg "Canceled"
     else
@@ -79,33 +107,35 @@ remove() {
     fi
 }
 
+## usage
+usage() {
+    msg "USAGE:"
+    msg "    ./install.sh [parameter]"
+    msg "PARAMETER:"
+    msg "    -i        Install the $app_name"
+    msg "    -u        Update the $app_name"
+    msg "    -r        Remove the $app_name"
+    msg "    -h        Display this message"
+    msg ""
+    msg "https://github.com/chandelures/chandezsh"
+}
+
 ## main
 main() {
     local OPTIND
     local OPTARG
-    while getopts ihur-: OPT;
+
+    local proxy_flag=""
+
+    while getopts ihurp: OPT;
     do
         case $OPT in
-            -)
-                case $OPTARG in
-                    help)
-                        usage
-                        exit 0
-                        ;;
-                    install)
-                        install
-                        exit 0
-                        ;;
-                    remove)
-                        remove
-                        exit 0
-                        ;;
-                    *)
-                        usage
-                        exit 1
-                        ;;
-                esac
+            p)
+                proxy_flag="-x $OPTARG"
                 ;;
+        esac
+
+        case $OPT in
             h)
                 usage
                 exit 0
@@ -122,9 +152,9 @@ main() {
                 usage
                 exit 1
                 ;;
-            esac
-        done
-        install
+        esac
+    done
+    install
 }
 
 main $@
