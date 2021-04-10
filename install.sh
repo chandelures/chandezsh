@@ -29,8 +29,7 @@ backup() {
 }
 
 download_zshrc() {
-    echo "curl -fLo \"$HOME/.zshrc\" \"$ZSHRC_URL\""
-    $curl_proxy -fLo "$HOME/.zshrc" "$ZSHRC_URL"
+    $curl -fLo "$HOME/.zshrc" "$ZSHRC_URL"
 
     if [ $? -ne 0 ]; then
         msg "Download zshrc Failed!"
@@ -65,8 +64,6 @@ install_plug_mgr() {
 
 ## install
 install() {
-    local proxy_flag=$1 || ""
-
     if program_not_exists 'git'; then
         msg "You don't have git."
         return
@@ -82,7 +79,7 @@ install() {
 
     backup "$HOME/.zshrc"
 
-    download_zshrc "$proxy_flag"
+    download_zshrc
 
     install_plug_mgr
 
@@ -91,14 +88,12 @@ install() {
 
 ## update
 update() {
-    local proxy_flag=$1 || ""
-
     if program_not_exists 'git'; then
         msg "You don't have git"
         return
     fi
 
-    download_zshrc "$proxy_flag"
+    download_zshrc
 
     msg "Done."
 }
@@ -144,13 +139,13 @@ main() {
     local OPTARG
 
     local proxy_flag=""
+    export curl="curl"
 
     while getopts ihurp: OPT;
     do
         case $OPT in
             p)
-                proxy_flag="-x $OPTARG"
-                export curl_proxy="curl -x $OPTARG"
+                export curl="curl -x $OPTARG"
                 ;;
             h)
                 usage
