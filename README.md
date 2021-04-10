@@ -15,9 +15,7 @@ $ sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/instal
 then
 
 ```shell
-$ git clone https://github.com/chandelures/chandezsh
-$ cd chandezsh
-$ ./install.zsh
+$ bash -c "$(curl -L https://raw.githubusercontent.com/chandelures/chandevim/master/install.sh)"
 $ source ~/.zshrc
 $ zplug install
 ```
@@ -25,15 +23,12 @@ $ zplug install
 ### update
 
 ```shell
-$ ./isntall.zsh -u
+$ bash -c "$(curl -L https://raw.githubusercontent.com/chandelures/chandevim/master/install.sh)" @ -u
 $ zplug update
 ```
 
 ### Remove
 
 ```shell
-$ ./install.zsh -r
+$ bash -c "$(curl -L https://raw.githubusercontent.com/chandelures/chandevim/master/install.sh)" @ -r
 ```
-
-
-
