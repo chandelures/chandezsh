@@ -53,6 +53,17 @@ program_not_exists() {
     return 1
 }
 
+programs_check() {
+    local programs=("$@")
+
+    for program in $programs;
+    do
+        if program_not_exists $program; then
+            msg "You don't have $program."
+        fi
+    done
+}
+
 install_plug_mgr() {
     git clone $ZPLUG_URL $ZPLUG_HOME
 
@@ -66,14 +77,7 @@ install_plug_mgr() {
 
 ## install
 install() {
-    if program_not_exists 'git'; then
-        msg "You don't have git."
-        return
-    fi
-
-    if program_not_exists 'zsh'; then
-        msg "You don't have zsh."
-    fi
+    programs_check "curl" "zsh"
 
     if [ ! -e "$HOME/.oh-my-zsh" ]; then
         msg "You don't have oh-my-zsh."
@@ -90,10 +94,7 @@ install() {
 
 ## update
 update() {
-    if program_not_exists 'git'; then
-        msg "You don't have git"
-        return
-    fi
+    programs_check "curl" "zsh"
 
     download_zshrc
 
