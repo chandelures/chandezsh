@@ -13,6 +13,8 @@ ZPLUG_HOME="$HOME/.zplug"
 
 ZSHRC_URL="https://raw.githubusercontent.com/chandelures/chandezsh/master/.zshrc"
 
+curl="curl"
+
 ## basic function
 msg() {
     echo "$1"
@@ -20,11 +22,11 @@ msg() {
 
 ## tools
 backup() {
-    local backup_files=("#@")
+    local backup_files=("$@")
 
     for backup_file in $backup_files;
     do
-        [ -e "$backup_file" ] && [ ! -L "$backup_file" ] && mv -v "$backup_file" "${backup_file}.bak";
+        [ -e "$backup_file" ] && mv -v "$backup_file" "$backup_file.bak";
     done
 }
 
@@ -105,6 +107,7 @@ remove() {
     case $input in
         [yY][eR][sS]|[yY])
             rm -rf $HOME/.zplug
+            rm -rf $HOME/.zshrc
             msg "Done."
             exit 0
             ;;
@@ -137,9 +140,6 @@ usage() {
 main() {
     local OPTIND
     local OPTARG
-
-    local proxy_flag=""
-    export curl="curl"
 
     while getopts ihurp: OPT;
     do
