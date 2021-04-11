@@ -20,6 +20,14 @@ $ source ~/.zshrc
 $ zplug install
 ```
 
+or use proxy
+
+```shell
+$ bash -c "$(curl -L https://raw.githubusercontent.com/chandelures/chandezsh/master/install.sh)" @ -p http://xxxx:xxxx
+$ source ~/.zshrc
+$ zplug install
+```
+
 ### update
 
 ```shell
