@@ -17,7 +17,11 @@ CURL="curl"
 
 ## basic function
 msg() {
-    echo "$1"
+    echo "[info] $1"
+}
+
+err() {
+    echo "[error] $1"
 }
 
 ## tools
@@ -48,7 +52,8 @@ programs_check() {
     for program in $programs;
     do
         if program_not_exists $program; then
-            msg "You don't have $program."
+            err "You don't have $program."
+            exit 1
         fi
     done
 }
@@ -58,7 +63,7 @@ process_check() {
     local process_name=$2
 
     if [ $1 -ne 0 ]; then
-        msg "$process_name Failed!"
+        err "$process_name Failed!"
         exit 1
     fi
 
