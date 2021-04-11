@@ -3,8 +3,6 @@
 ## params
 app_name="chandezsh"
 
-APP_PATH=`pwd`
-
 REPO_URL="https://github.com/chandelures/chandezsh.vim"
 
 ZPLUG_URL="https://github.com/zplug/zplug"
