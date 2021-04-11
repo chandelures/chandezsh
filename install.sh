@@ -13,7 +13,7 @@ ZPLUG_HOME="$HOME/.zplug"
 
 ZSHRC_URL="https://raw.githubusercontent.com/chandelures/chandezsh/master/.zshrc"
 
-curl="curl"
+CURL="curl"
 
 ## basic function
 msg() {
@@ -28,17 +28,6 @@ backup() {
     do
         [ -e "$backup_file" ] && mv -v "$backup_file" "$backup_file.bak";
     done
-}
-
-download_zshrc() {
-    $curl -fLo "$HOME/.zshrc" "$ZSHRC_URL"
-
-    if [ $? -ne 0 ]; then
-        msg "Download zshrc Failed!"
-        exit 1
-    fi
-
-    msg "Download zshrc Successful!"
 }
 
 program_not_exists() {
@@ -64,15 +53,28 @@ programs_check() {
     done
 }
 
-install_plug_mgr() {
-    git clone $ZPLUG_URL $ZPLUG_HOME
+process_check() {
+    local status=$1
+    local process_name=$2
 
-    if [ $? -ne 0 ]; then
-        msg "Install plugin manager Failed!"
+    if [ $1 -ne 0 ]; then
+        msg "$process_name Failed!"
         exit 1
     fi
 
-    msg "Install plugin manager Successful!"
+    msg "$process_name Successful"
+}
+
+download_zshrc() {
+    $CURL -fLo "$HOME/.zshrc" "$ZSHRC_URL"
+
+    process_check $? "Download zshrc"
+}
+
+install_plug_mgr() {
+    git clone $ZPLUG_URL $ZPLUG_HOME
+
+    process_check $? "Install plugin manager"
 }
 
 ## install
@@ -146,7 +148,7 @@ main() {
     do
         case $OPT in
             p)
-                export curl="curl -x $OPTARG"
+                export CURL="curl -x $OPTARG"
                 ;;
             h)
                 usage
